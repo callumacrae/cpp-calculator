@@ -11,11 +11,11 @@
 #include "calculate.hpp"
 
 float calculate(const std::string& mathString) {
-    if (mathString[mathString.find_first_not_of(' ')] == '(' && mathString[mathString.find_last_not_of(' ')] == ')') {
-        unsigned long start = mathString.find('(');
-        unsigned long end = mathString.rfind(')');
-        
-        return calculate(mathString.substr(start + 1, end - start));
+    std::wstring::size_type firstCharPos = mathString.find_first_not_of(' ');
+    std::wstring::size_type lastCharPos = mathString.find_last_not_of(' ');
+    
+    if (mathString[firstCharPos] == '(' && mathString[lastCharPos] == ')') {
+        return calculate(mathString.substr(firstCharPos + 1, lastCharPos - firstCharPos - 1));
     }
     
     int bracketsDeep = 0;
