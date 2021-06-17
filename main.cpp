@@ -12,9 +12,6 @@
 #include "calculate.hpp"
 
 int main(int argc, const char * argv[]) {
-    float result = calculate("1 - 1 + 1");
-    std::cout << result << std::endl;
-    
     assert(calculate("1 + 2") == 3);
     assert(calculate("3 - 2") == 1);
     assert(calculate("3 * 2") == 6);
@@ -35,4 +32,19 @@ int main(int argc, const char * argv[]) {
     assert(calculate("1 + 2 - 3 + 4") == 4);
 
     assert(calculate("2.5 * 4 + (1 + 2 * 2) / 5 - 3 * 2") == 5);
+
+    std::cout << "Welcome 2 calculator, enter query to query:\n\n";
+    
+    while (true) {
+        std::cout << "> ";
+        std::string query;
+        std::getline(std::cin, query);
+        
+        if (query == "exit" || query == "q") {
+            std::cout << "bye" << std::endl;
+            break;
+        }
+        
+        std::cout << calculate(query) << std::endl << std::endl;
+    }
 }
