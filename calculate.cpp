@@ -19,7 +19,7 @@ float calculate(const std::string& mathString) {
     }
     
     int bracketsDeep = 0;
-    for (int i = 0; i < mathString.size(); i++) {
+    for (int i = (int) mathString.size() - 1; i >= 0; i--) {
         if (mathString[i] == '(') {
             bracketsDeep++;
         } else if (mathString[i] == ')') {
@@ -35,7 +35,7 @@ float calculate(const std::string& mathString) {
     }
     
     bracketsDeep = 0;
-    for (int i = 0; i < mathString.size(); i++) {
+    for (int i = (int) mathString.size() - 1; i >= 0; i--) {
         if (mathString[i] == '(') {
             bracketsDeep++;
         } else if (mathString[i] == ')') {

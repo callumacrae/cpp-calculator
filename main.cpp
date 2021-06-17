@@ -12,7 +12,7 @@
 #include "calculate.hpp"
 
 int main(int argc, const char * argv[]) {
-    float result = calculate("(1)");
+    float result = calculate("1 - 1 + 1");
     std::cout << result << std::endl;
     
     assert(calculate("1 + 2") == 3);
@@ -31,6 +31,8 @@ int main(int argc, const char * argv[]) {
     assert(calculate("1 + 2 * 3") == 7);
     assert(calculate("1 * 4 / 2") == 2);
 
-//    assert(calculate("12 / 4 * 2") == 6);
-//    assert(calculate("1 + 2 - 3 + 4") == 4);
+    assert(calculate("12 / 4 * 2") == 6);
+    assert(calculate("1 + 2 - 3 + 4") == 4);
+
+    assert(calculate("2.5 * 4 + (1 + 2 * 2) / 5 - 3 * 2") == 5);
 }
