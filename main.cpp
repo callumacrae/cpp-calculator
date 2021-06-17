@@ -19,9 +19,14 @@ int main(int argc, const char * argv[]) {
     
     assert(calculate("(1)") == 1);
     assert(calculate("(1 + 2) * 3") == 9);
+    assert(calculate("((4 / 4) + 2) * 3") == 9);
     
     assert(calculate("3 / 2") == 1.5f);
     assert(calculate("3.5 / 2") == 1.75f);
+    
+    assert(calculate("cos(0)") == 1);
+    assert(floorf(calculate("sin(2)") * 1e4) / 1e4 == 0.9092);
+    assert(calculate("round(sin(2)) * 2 + floor(cos(2)) * 3") == -1);
     
     assert(calculate("1 + 2 + 3") == 6);
     assert(calculate("1 * 2 + 3") == 5);
