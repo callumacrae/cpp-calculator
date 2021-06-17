@@ -73,5 +73,21 @@ float calculate(const std::string& mathString) {
         }
     }
     
+    bracketsDeep = 0;
+    for (int i = (int) mathString.size() - 1; i >= 0; i--) {
+        if (mathString[i] == '(') {
+            bracketsDeep++;
+        } else if (mathString[i] == ')') {
+            bracketsDeep--;
+        }
+        
+        if (bracketsDeep == 0 && mathString[i] == '^') {
+            float left = calculate(mathString.substr(0, i));
+            float right = calculate(mathString.substr(i + 1));
+            
+            return pow(left, right);
+        }
+    }
+    
     return std::stof(mathString);
 }
