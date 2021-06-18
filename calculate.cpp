@@ -7,9 +7,34 @@
 
 #include <iostream>
 #include <string>
+#include <optional>
 #include <math.h>
 
 #include "calculate.hpp"
+
+using PairOfFloats = std::pair<float, float>;
+using OptionalPair = std::optional<PairOfFloats>;
+
+static OptionalPair findOperation(const std::string& mathString, const char& operation) {
+    int bracketsDeep = 0;
+    for (int i = (int) mathString.size() - 1; i >= 0; i--) {
+        if (mathString[i] == '(') {
+            bracketsDeep++;
+        } else if (mathString[i] == ')') {
+            bracketsDeep--;
+        }
+        
+        if (bracketsDeep == 0 && mathString[i] == operation) {
+            float left = calculate(mathString.substr(0, i));
+            float right = calculate(mathString.substr(i + 1));
+            
+            // @todo how does this work with memory and stuff
+            return std::pair(left, right);
+        }
+    }
+    
+    return {};
+}
 
 float calculate(const std::string& mathString) {
     std::size_t firstCharPos = mathString.find_first_not_of(' ');
@@ -41,52 +66,34 @@ float calculate(const std::string& mathString) {
         }
     }
     
-    int bracketsDeep = 0;
-    for (int i = (int) mathString.size() - 1; i >= 0; i--) {
-        if (mathString[i] == '(') {
-            bracketsDeep++;
-        } else if (mathString[i] == ')') {
-            bracketsDeep--;
-        }
-        
-        if (bracketsDeep == 0 && (mathString[i] == '-' || mathString[i] == '+')) {
-            float left = calculate(mathString.substr(0, i));
-            float right = calculate(mathString.substr(i + 1));
-            
-            return mathString[i] == '-' ? left - right : left + right;
-        }
+    OptionalPair lastPlus = findOperation(mathString, '+');
+    if (lastPlus.has_value()) {
+        PairOfFloats val = lastPlus.value();
+        return val.first + val.second;
     }
     
-    bracketsDeep = 0;
-    for (int i = (int) mathString.size() - 1; i >= 0; i--) {
-        if (mathString[i] == '(') {
-            bracketsDeep++;
-        } else if (mathString[i] == ')') {
-            bracketsDeep--;
-        }
-        
-        if (bracketsDeep == 0 && (mathString[i] == '*' || mathString[i] == '/')) {
-            float left = calculate(mathString.substr(0, i));
-            float right = calculate(mathString.substr(i + 1));
-            
-            return mathString[i] == '*' ? left * right : left / right;
-        }
+    OptionalPair lastMinus = findOperation(mathString, '-');
+    if (lastMinus.has_value()) {
+        PairOfFloats val = lastMinus.value();
+        return val.first - val.second;
     }
     
-    bracketsDeep = 0;
-    for (int i = (int) mathString.size() - 1; i >= 0; i--) {
-        if (mathString[i] == '(') {
-            bracketsDeep++;
-        } else if (mathString[i] == ')') {
-            bracketsDeep--;
-        }
-        
-        if (bracketsDeep == 0 && mathString[i] == '^') {
-            float left = calculate(mathString.substr(0, i));
-            float right = calculate(mathString.substr(i + 1));
-            
-            return pow(left, right);
-        }
+    OptionalPair lastMultiply = findOperation(mathString, '*');
+    if (lastMultiply.has_value()) {
+        PairOfFloats val = lastMultiply.value();
+        return val.first * val.second;
+    }
+    
+    OptionalPair lastDivide = findOperation(mathString, '/');
+    if (lastDivide.has_value()) {
+        PairOfFloats val = lastDivide.value();
+        return val.first / val.second;
+    }
+    
+    OptionalPair lastPow = findOperation(mathString, '^');
+    if (lastPow.has_value()) {
+        PairOfFloats val = lastPow.value();
+        return pow(val.first, val.second);
     }
     
     return std::stof(mathString);
