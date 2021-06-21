@@ -7,4 +7,4 @@
 
 #pragma once
 
-float calculate(const std::string& mathString);
+float calculate(const std::string_view& mathString);

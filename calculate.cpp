@@ -15,7 +15,7 @@
 using PairOfFloats = std::pair<float, float>;
 using OptionalPair = std::optional<PairOfFloats>;
 
-static OptionalPair findOperation(const std::string& mathString, const char& operation) {
+static OptionalPair findOperation(const std::string_view& mathString, const char& operation) {
     int bracketsDeep = 0;
     for (int i = (int) mathString.size() - 1; i >= 0; i--) {
         if (mathString[i] == '(') {
@@ -36,7 +36,7 @@ static OptionalPair findOperation(const std::string& mathString, const char& ope
     return {};
 }
 
-float calculate(const std::string& mathString) {
+float calculate(const std::string_view& mathString) {
     std::size_t firstCharPos = mathString.find_first_not_of(' ');
     std::size_t lastCharPos = mathString.find_last_not_of(' ');
     char firstChar = mathString[firstCharPos];
@@ -49,7 +49,7 @@ float calculate(const std::string& mathString) {
             return innerResult;
         }
         
-        std::string function = mathString.substr(firstCharPos, firstBracketPos - firstCharPos);
+        std::string_view function = mathString.substr(firstCharPos, firstBracketPos - firstCharPos);
         
         if (function == "sin") {
             return sin(innerResult);
@@ -96,5 +96,5 @@ float calculate(const std::string& mathString) {
         return pow(val.first, val.second);
     }
     
-    return std::stof(mathString);
+    return std::stof(std::string(mathString));
 }
