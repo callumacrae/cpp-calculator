@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 3.10)
+
+set(CMAKE_BUILD_TYPE debug)
+SET(CMAKE_CXX_COMPILER "/usr/bin/clang++")
+set(CMAKE_CXX_FLAGS "-std=c++17")
+
+project(calculator)
+
+add_executable(
+  build/calculator
+  src/main.cpp
+  src/calculate.cpp
+)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
