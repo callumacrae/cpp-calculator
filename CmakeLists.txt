@@ -7,10 +7,14 @@ set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+set(CALCULATOR_SOURCE_FILES src/main.cpp src/calculate.cpp)
+
 project(calculator)
 
-add_executable(
-  calculator
-  src/main.cpp
-  src/calculate.cpp
+add_executable(calculator ${CALCULATOR_SOURCE_FILES})
+
+add_custom_target(
+  clang-format
+  COMMAND clang-format -i ${CALCULATOR_SOURCE_FILES}
+  COMMENT "Formatting with clang-format"
 )
