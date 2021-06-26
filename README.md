@@ -29,3 +29,4 @@ To test and run:
 
 - Variables (`a = 2` then `2 * a`)
 - Error handling
+- Better testing workflow
