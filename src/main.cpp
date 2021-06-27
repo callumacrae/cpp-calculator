@@ -50,10 +50,14 @@ int main(int argc, const char *argv[]) {
     std::getline(std::cin, query);
 
     if (query == "exit" || query == "q") {
-      std::cout << "bye" << std::endl;
+      std::cout << "bye\n";
       break;
     }
 
-    std::cout << calculate(query) << std::endl << std::endl;
+    try {
+      std::cout << calculate(query) << "\n\n";
+    } catch (...) {
+      std::cout << "?\n\n";
+    }
   }
 }
