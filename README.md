@@ -19,14 +19,26 @@ cmake .
 make
 ```
 
-To test and run:
+To execute:
 
 ```
 ./out/calculator
 ```
 
+## Tests
+
+Install additional dependencies:
+
+```
+brew install catch2
+```
+
+Follow compilation steps from above and run:
+
+```
+./out/tests
+```
+
 ## To do maybe
 
 - Variables (`a = 2` then `2 * a`)
-- Error handling
-- Better testing workflow

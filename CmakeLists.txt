@@ -12,6 +12,10 @@ set(CALCULATOR_SOURCE_FILES src/main.cpp src/calculate.cpp)
 project(calculator)
 
 add_executable(calculator ${CALCULATOR_SOURCE_FILES})
+add_executable(tests test/test.cpp src/calculate.cpp)
+
+find_package(Catch2 REQUIRED)
+target_link_libraries(tests Catch2::Catch2)
 
 add_custom_target(
   clang-format
