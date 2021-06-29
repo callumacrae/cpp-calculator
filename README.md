@@ -27,13 +27,9 @@ To execute:
 
 ## Tests
 
-Install additional dependencies:
+This project uses Catch2 for running tests, which is fetched by cmake.
 
-```
-brew install catch2
-```
-
-Follow compilation steps from above and run:
+To run, follow compilation steps from above and execute:
 
 ```
 ./out/tests
